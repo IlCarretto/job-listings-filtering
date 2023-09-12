@@ -1,0 +1,31 @@
+@use "./variables" as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+// RESET
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// font
+html {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 15px;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+.App {
+    width: 100vw;
+    min-height: 100vh;
+}

@@ -15,7 +15,6 @@ const CardItem = ({dataCard, setCurrentFilters, currentFilters}: IProps) => {
         if (!currentFilters.includes(filter)) {
             setCurrentFilters([...currentFilters, filter]);
         }
-        return
     }
 
     const { logo, company, new: isNew, featured, position, postedAt, contract, location, languages, tools, role, level } = dataCard;

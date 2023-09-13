@@ -185,7 +185,7 @@ export const FilterBox = styled.div`
     max-width: 1200px;
     position: absolute;
     border-radius: 8px;
-    top: -40px;
+    top: -60px;
     left: 50%;
     transform: translateX(-50%);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

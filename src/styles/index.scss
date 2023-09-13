@@ -35,9 +35,17 @@ button {
 
 // COMMON
 .mt-1 {
-    margin-top: 5rem;
+    margin-top: 7rem;
 
     @media (min-width: 576px) {
-        margin-top: 2rem;
+        margin-top: 4rem;
+    }
+
+    @media (min-width: 768px) {
+        margin-top: 1rem;
+    }
+
+    @media (min-width: 1440px) {
+        margin-top: 0rem;
     }
 }

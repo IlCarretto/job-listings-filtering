@@ -43,7 +43,7 @@ function App() {
                 {currentFilters.map((card, i) => (
                   <li key={i}>
                     <div>{card}</div>
-                    <button onClick={() => setCurrentFilters((prevFilters) => prevFilters.filter((f) => f != card))}>
+                    <button onClick={() => setCurrentFilters((prevFilters) => prevFilters.filter((f) => f !== card))}>
                       <img src="/icon-remove.svg" alt="Remove Filter" />
                     </button>
                   </li>

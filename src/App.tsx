@@ -1,209 +1,34 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./styles/styles";
-import { Card, Container, Header, Main, theme } from './styles/styles';
+import { ClearButton, Container, FilterBox, Header, Main, theme } from './styles/styles';
 import { ThemeProvider } from "styled-components";
+import { Item } from './type';
+import CardItem from './CardItem';
 
 function App() {
+  const [data, setData] = useState<Item[]>([]);
+  const [currentFilters, setCurrentFilters] = useState<string[]>([]);
 
-  const data = [
-    {
-      "id": 1,
-      "company": "Photosnap",
-      "logo": "/photosnap.svg",
-      "new": true,
-      "featured": true,
-      "position": "Senior Frontend Developer",
-      "role": "Frontend",
-      "level": "Senior",
-      "postedAt": "1d ago",
-      "contract": "Full Time",
-      "location": "USA Only",
-      "languages": [
-        "HTML",
-        "CSS",
-        "JavaScript"
-      ],
-      "tools": []
-    },
-    {
-      "id": 2,
-      "company": "Manage",
-      "logo": "/manage.svg",
-      "new": true,
-      "featured": true,
-      "position": "Fullstack Developer",
-      "role": "Fullstack",
-      "level": "Midweight",
-      "postedAt": "1d ago",
-      "contract": "Part Time",
-      "location": "Remote",
-      "languages": [
-        "Python"
-      ],
-      "tools": [
-        "React"
-      ]
-    },
-    {
-      "id": 3,
-      "company": "Account",
-      "logo": "/account.svg",
-      "new": true,
-      "featured": false,
-      "position": "Junior Frontend Developer",
-      "role": "Frontend",
-      "level": "Junior",
-      "postedAt": "2d ago",
-      "contract": "Part Time",
-      "location": "USA Only",
-      "languages": [
-        "JavaScript"
-      ],
-      "tools": [
-        "React",
-        "Sass"
-      ]
-    },
-    {
-      "id": 4,
-      "company": "MyHome",
-      "logo": "/myhome.svg",
-      "new": false,
-      "featured": false,
-      "position": "Junior Frontend Developer",
-      "role": "Frontend",
-      "level": "Junior",
-      "postedAt": "5d ago",
-      "contract": "Contract",
-      "location": "USA Only",
-      "languages": [
-        "CSS",
-        "JavaScript"
-      ],
-      "tools": []
-    },
-    {
-      "id": 5,
-      "company": "Loop Studios",
-      "logo": "/loop-studios.svg",
-      "new": false,
-      "featured": false,
-      "position": "Software Engineer",
-      "role": "Fullstack",
-      "level": "Midweight",
-      "postedAt": "1w ago",
-      "contract": "Full Time",
-      "location": "Worldwide",
-      "languages": [
-        "JavaScript"
-      ],
-      "tools": [
-        "Ruby",
-        "Sass"
-      ]
-    },
-    {
-      "id": 6,
-      "company": "FaceIt",
-      "logo": "/faceit.svg",
-      "new": false,
-      "featured": false,
-      "position": "Junior Backend Developer",
-      "role": "Backend",
-      "level": "Junior",
-      "postedAt": "2w ago",
-      "contract": "Full Time",
-      "location": "UK Only",
-      "languages": [
-        "Ruby"
-      ],
-      "tools": [
-        "RoR"
-      ]
-    },
-    {
-      "id": 7,
-      "company": "Shortly",
-      "logo": "/shortly.svg",
-      "new": false,
-      "featured": false,
-      "position": "Junior Developer",
-      "role": "Frontend",
-      "level": "Junior",
-      "postedAt": "2w ago",
-      "contract": "Full Time",
-      "location": "Worldwide",
-      "languages": [
-        "HTML",
-        "JavaScript"
-      ],
-      "tools": [
-        "Sass"
-      ]
-    },
-    {
-      "id": 8,
-      "company": "Insure",
-      "logo": "/insure.svg",
-      "new": false,
-      "featured": false,
-      "position": "Junior Frontend Developer",
-      "role": "Frontend",
-      "level": "Junior",
-      "postedAt": "2w ago",
-      "contract": "Full Time",
-      "location": "USA Only",
-      "languages": [
-        "JavaScript"
-      ],
-      "tools": [
-        "Vue",
-        "Sass"
-      ]
-    },
-    {
-      "id": 9,
-      "company": "Eyecam Co.",
-      "logo": "/eyecam-co.svg",
-      "new": false,
-      "featured": false,
-      "position": "Full Stack Engineer",
-      "role": "Fullstack",
-      "level": "Midweight",
-      "postedAt": "3w ago",
-      "contract": "Full Time",
-      "location": "Worldwide",
-      "languages": [
-        "JavaScript",
-        "Python"
-      ],
-      "tools": [
-        "Django"
-      ]
-    },
-    {
-      "id": 10,
-      "company": "The Air Filter Company",
-      "logo": "/the-air-filter-company.svg",
-      "new": false,
-      "featured": false,
-      "position": "Front-end Dev",
-      "role": "Frontend",
-      "level": "Junior",
-      "postedAt": "1mo ago",
-      "contract": "Part Time",
-      "location": "Worldwide",
-      "languages": [
-        "JavaScript"
-      ],
-      "tools": [
-        "React",
-        "Sass"
-      ]
-    }
-  ]
-  
+  const filteredItems = data.filter((item) => {
+    return currentFilters.every((filter) =>
+      item.languages.includes(filter) ||
+      item.tools.includes(filter) ||
+      item.role.includes(filter) ||
+      item.level.includes(filter)
+    );
+  });
+
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const resp = await fetch("/data.json");
+        const jsonData = await resp.json();
+        setData(jsonData);
+      } catch (err) {
+        console.error(err);
+      }
+    } 
+    getData();
   }, [])
 
   return (
@@ -212,27 +37,36 @@ function App() {
         <Header/>
         <Main>
           <Container>
-            {data.map((card) => {
-              const { id, company, logo, featured, position, role, level, postedAt, contract, location, languages, tools } = card;
-              return (
-                <Card key={id}>
-                  <img src={logo} alt={company} />
-                  <div className="card-top">
-                    <div className="title">
-                      <h4>{company}</h4>
-                      {card.new && <span className="new">NEW!</span>}
-                      {featured && <span className="featured">FEATURED</span>}
-                    </div>
-                    <h4>{position}</h4>
-                    <ul>
-                      <li>{postedAt}</li>
-                      <li>{contract}</li>
-                      <li>{location}</li>
-                    </ul>
-                  </div>
-                </Card>
-              )
-            })}
+            {currentFilters.length > 0 && (
+              <FilterBox>
+                <ul>
+                {currentFilters.map((card, i) => (
+                  <li key={i}>
+                    <div>{card}</div>
+                    <button onClick={() => setCurrentFilters((prevFilters) => prevFilters.filter((f) => f != card))}>
+                      <img src="/icon-remove.svg" alt="Remove Filter" />
+                    </button>
+                  </li>
+                ))}
+                </ul>
+                <ClearButton onClick={() => setCurrentFilters([])}>Clear</ClearButton>
+              </FilterBox>
+            )}
+            <div className={`cards-container ${currentFilters.length > 0 && 'mt-1'}`}>
+            {currentFilters.length > 0 ? (
+              filteredItems.map((card) => {
+                return (
+                  <CardItem key={card.id} dataCard={card} currentFilters={currentFilters} setCurrentFilters={setCurrentFilters}/>
+                )
+              })
+            ) : (
+              data.map((card) => {
+                return (
+                  <CardItem key={card.id} dataCard={card} currentFilters={currentFilters} setCurrentFilters={setCurrentFilters}/>
+                )
+              })
+            )}
+            </div>
           </Container>
         </Main>
 

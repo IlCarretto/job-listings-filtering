@@ -1,6 +1,6 @@
 @use "./variables" as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 // RESET
 * {
@@ -11,7 +11,7 @@
 
 // font
 html {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'League Spartan', sans-serif;
     font-size: 15px;
 }
 
@@ -25,7 +25,19 @@ a {
     color: unset;
 }
 
-.App {
-    width: 100vw;
-    min-height: 100vh;
+button {
+    background: inherit;
+    border: inherit;
+    color: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+}
+
+// COMMON
+.mt-1 {
+    margin-top: 5rem;
+
+    @media (min-width: 576px) {
+        margin-top: 2rem;
+    }
 }

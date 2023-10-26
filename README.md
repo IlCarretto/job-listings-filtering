@@ -1,5 +1,5 @@
 <h1>JOB LISTINGS FILTERING APP</h1>
-[https://ilcarretto-rest-countries-api.netlify.app/](https://ilcarretto-jobs-listings-filtering.netlify.app/)
+(https://ilcarretto-jobs-listings-filtering.netlify.app/)
 
 <h2>Made with REACT, Typescript, SCSS, styled-components</h2>
 <h3>Includes API calls, RESPONSIVENESS, state management, filtering labels etc.</h3>
